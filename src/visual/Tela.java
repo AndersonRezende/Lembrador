@@ -145,6 +145,8 @@ public class Tela extends javax.swing.JFrame
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenuEditar = new javax.swing.JMenu();
+        jMenuAjuda = new javax.swing.JMenu();
+        jMenuItemSobre = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -460,6 +462,20 @@ public class Tela extends javax.swing.JFrame
         jMenuEditar.setText("Editar");
         jMenuBar.add(jMenuEditar);
 
+        jMenuAjuda.setMnemonic('j');
+        jMenuAjuda.setText("Ajuda");
+
+        jMenuItemSobre.setMnemonic('S');
+        jMenuItemSobre.setText("Sobre");
+        jMenuItemSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSobreActionPerformed(evt);
+            }
+        });
+        jMenuAjuda.add(jMenuItemSobre);
+
+        jMenuBar.add(jMenuAjuda);
+
         setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -521,6 +537,15 @@ public class Tela extends javax.swing.JFrame
             jMenuItemSalvar.setEnabled(true);
     }//GEN-LAST:event_jTabbedPaneLembretesStateChanged
 
+    private void jMenuItemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSobreActionPerformed
+        String mensagem = "SOBRE\n\n"
+                + "Lembrete é um software produzido com o objetivo de auxiliar seus usuários a \n"
+                + "lembrarem de atividades cadastradas previamentes no sistema, o mesmo é capaz \n"
+                + "de exibir alertas informando a quantidade de dias restantes até o seu término.\n"
+                + "\n\tEntre em contato para mais dúvidas: andersonrezende17@hotmail.com";
+        JOptionPane.showMessageDialog(this.getContentPane(), mensagem, "SOBRE", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItemSobreActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -543,6 +568,7 @@ public class Tela extends javax.swing.JFrame
     private javax.swing.JLabel jLabelDescricao;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JList<String> jListLembretes;
+    private javax.swing.JMenu jMenuAjuda;
     private javax.swing.JMenu jMenuArquivo;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuEditar;
@@ -550,6 +576,7 @@ public class Tela extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItemNovo;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemSalvar;
+    private javax.swing.JMenuItem jMenuItemSobre;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;

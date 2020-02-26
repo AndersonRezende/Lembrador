@@ -32,9 +32,11 @@ public class Data
     }
     
     public static int diferencaDiasDataAtual(Calendar calendario)
+    {   return diferencaDias(Calendar.getInstance(), calendario);   }
+    
+    public static int diferencaDias(Calendar dataInicial, Calendar dataFinal)
     {
-        Calendar calendarioAtual = Calendar.getInstance();
-        int diferenca = calendario.get(Calendar.DAY_OF_YEAR) - calendarioAtual.get(Calendar.DAY_OF_YEAR);
+        int diferenca = dataFinal.get(Calendar.DAY_OF_YEAR) - dataInicial.get(Calendar.DAY_OF_YEAR);
         return diferenca;
     }
 }
