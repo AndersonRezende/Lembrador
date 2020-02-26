@@ -45,13 +45,7 @@ public class Lembrete
     {   return data;    }
     
     public String getDataFormatada()
-    {   
-        String dataFormatada = "";
-        dataFormatada = this.data.get(Calendar.DAY_OF_MONTH) + "/";
-        dataFormatada += this.data.get(Calendar.MONTH) + "/";
-        dataFormatada += this.data.get(Calendar.YEAR) + "";
-        return dataFormatada;
-    }
+    {   return Data.formatarData(this.data); }
     
     public int getDia()
     {   return data.get(Calendar.DAY_OF_MONTH); }

@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import objeto.Data;
 import objeto.Lembrete;
 
 /**
@@ -42,18 +43,32 @@ public class Tela extends javax.swing.JFrame
         String descricao = jTextAreaDescricaoLembrete.getText();
         String []data = jFormattedTextFieldDataLembrete.getText().split("/");
         Lembrete lembrete = new Lembrete(1, nome, Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]), descricao);
-        lembretes.add(lembrete);
-        try 
-        {   
-            arquivo.gravarArquivo(lembretes);   
-            jTabbedPaneLembretes.setSelectedIndex(0);
-            JOptionPane.showMessageDialog(this.getContentPane(), "Lembrete criado com sucesso.", "Sucesso ao criar lembrete", JOptionPane.INFORMATION_MESSAGE);
-        } 
-        catch (IOException ex) 
-        {   
-            Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex); 
-            JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao criar o lembrete.", "Falha ao criar lembrete", JOptionPane.ERROR_MESSAGE);
+        if(Data.diferencaDiasDataAtual(lembrete.getData()) > 0)
+        {
+            lembretes.add(lembrete);
+            try 
+            {   
+                arquivo.gravarArquivo(lembretes);
+                jTabbedPaneLembretes.setSelectedIndex(0);
+                atualizarLista();
+                limparNovoLembrete();
+                JOptionPane.showMessageDialog(this.getContentPane(), "Lembrete criado com sucesso.", "Sucesso ao criar lembrete", JOptionPane.INFORMATION_MESSAGE);
+            } 
+            catch (IOException ex) 
+            {   
+                Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex); 
+                JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao criar o lembrete.", "Falha ao criar lembrete", JOptionPane.ERROR_MESSAGE);
+            }
         }
+        else
+            JOptionPane.showMessageDialog(this.getContentPane(), "A data final do lembrete deve ser superior a data atual.", "Falha ao criar lembrete", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    private void limparNovoLembrete()
+    {
+        jTextFieldNomeLembrete.setText("");
+        jFormattedTextFieldDataLembrete.setText("");
+        jTextAreaDescricaoLembrete.setText("");
     }
     
     private void atualizarLista()
@@ -66,15 +81,9 @@ public class Tela extends javax.swing.JFrame
     }
     
     private void exibirData()
-    {
-        Calendar calendario = Calendar.getInstance();
-        String data = calendario.get(Calendar.DAY_OF_MONTH) + "/";
-        data += calendario.get(Calendar.MONTH) + "/";
-        data += calendario.get(Calendar.YEAR) + "";
-        jLabelDataAtual.setText("Hoje: " + data);
-    }
+    {   jLabelDataAtual.setText("Hoje: " + Data.dataAtual());   }
     
-    private void confirmarCriarLembrete()
+    private void checarCriarLembrete()
     {
         if(jTabbedPaneLembretes.getSelectedIndex() == 1)
         {
@@ -85,9 +94,7 @@ public class Tela extends javax.swing.JFrame
                     criarLembrete();
             }
             else
-            {
                 JOptionPane.showMessageDialog(this.getContentPane(), "Os campos nome e data não podem ficar em branco.", "Erro ao criar lembrete", JOptionPane.ERROR_MESSAGE);
-            }
         }
     }
     
@@ -479,7 +486,7 @@ public class Tela extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCriar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCriar3ActionPerformed
-        confirmarCriarLembrete();
+        checarCriarLembrete();
     }//GEN-LAST:event_jButtonCriar3ActionPerformed
 
     private void jTextFieldNomeLembreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeLembreteActionPerformed
@@ -504,7 +511,7 @@ public class Tela extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
     private void jMenuItemSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalvarActionPerformed
-        confirmarCriarLembrete();
+        checarCriarLembrete();
     }//GEN-LAST:event_jMenuItemSalvarActionPerformed
 
     private void jTabbedPaneLembretesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPaneLembretesStateChanged

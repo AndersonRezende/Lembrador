@@ -9,7 +9,7 @@
 </lembrete>
 <lembrete>
 <id>1</id>
-<nome>Processo nº 25125</nome>
+<nome>Processo nÃÂÃÂº 25125</nome>
 <dia>26</dia>
 <mes>3</mes>
 <ano>2020</ano>
@@ -29,6 +29,30 @@
 <dia>25</dia>
 <mes>4</mes>
 <ano>2020</ano>
-<descricao>Agendar verificação de dados com a aluna.</descricao>
+<descricao>Agendar verificaÃÂÃÂ§ÃÂÃÂ£o de dados com a aluna.</descricao>
+</lembrete>
+<lembrete>
+<id>1</id>
+<nome>Aluno Paulo Henrique</nome>
+<dia>1</dia>
+<mes>6</mes>
+<ano>2020</ano>
+<descricao>MatrÃÂ­cula aberta.</descricao>
+</lembrete>
+<lembrete>
+<id>1</id>
+<nome>Aluna Elizabeth Gillies</nome>
+<dia>30</dia>
+<mes>5</mes>
+<ano>2020</ano>
+<descricao>MatrÃ­cula aberta.</descricao>
+</lembrete>
+<lembrete>
+<id>1</id>
+<nome>Aluna Victoria Justice</nome>
+<dia>27</dia>
+<mes>2</mes>
+<ano>2020</ano>
+<descricao>Assistir série.</descricao>
 </lembrete>
 </lembretes>
