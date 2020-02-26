@@ -1,0 +1,34 @@
+<lembretes>
+<lembrete>
+<id>1</id>
+<nome>Buscar processo</nome>
+<dia>25</dia>
+<mes>2</mes>
+<ano>2020</ano>
+<descricao>Buscar a anotacao do processo</descricao>
+</lembrete>
+<lembrete>
+<id>1</id>
+<nome>Processo nº 25125</nome>
+<dia>26</dia>
+<mes>3</mes>
+<ano>2020</ano>
+<descricao>Processo referente a aluna Evelyn Braga</descricao>
+</lembrete>
+<lembrete>
+<id>1</id>
+<nome>Processo de Alan Ferreira</nome>
+<dia>30</dia>
+<mes>6</mes>
+<ano>2020</ano>
+<descricao>Processo do aluno Alan Ferreira.</descricao>
+</lembrete>
+<lembrete>
+<id>1</id>
+<nome>Aluna Eliana Menezes</nome>
+<dia>25</dia>
+<mes>4</mes>
+<ano>2020</ano>
+<descricao>Agendar verificação de dados com a aluna.</descricao>
+</lembrete>
+</lembretes>
