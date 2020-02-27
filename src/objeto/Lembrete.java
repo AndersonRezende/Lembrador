@@ -72,10 +72,16 @@ public class Lembrete
     {   this.nome = nome;   }
 
     public void setData(Calendar data) 
-    {   this.data = data;   }
+    {
+        this.data = data;   
+        this.setDias(Data.diferencaDiasDataAtual(data));
+    }
     
     public void setData(int dia, int mes, int ano)
-    {   this.data.set(ano, mes - 1, dia);   }
+    {   
+        this.data.set(ano, mes - 1, dia);   
+        this.setDias(Data.diferencaDiasDataAtual(data));
+    }
 
     public void setDescricao(String descricao) 
     {   this.descricao = descricao; }

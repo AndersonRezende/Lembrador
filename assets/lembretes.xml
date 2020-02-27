@@ -9,8 +9,8 @@
 </lembrete>
 <lembrete>
 <id>2</id>
-<nome>Processo número 25125</nome>
-<dia>26</dia>
+<nome>Processo número 25</nome>
+<dia>27</dia>
 <mes>3</mes>
 <ano>2020</ano>
 <descricao>Processo referente a aluna Evelyn Braga</descricao>
@@ -54,5 +54,13 @@
 <mes>4</mes>
 <ano>2020</ano>
 <descricao>Lembrar de assistir a série.</descricao>
+</lembrete>
+<lembrete>
+<id>8</id>
+<nome>Dolores O'Riordian</nome>
+<dia>30</dia>
+<mes>3</mes>
+<ano>2020</ano>
+<descricao>Escutar música.</descricao>
 </lembrete>
 </lembretes>

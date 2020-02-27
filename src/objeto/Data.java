@@ -25,6 +25,13 @@ public class Data
         return dataFormatada;
     }
     
+    public static int diferencaDiasDataAtual(int dia, int mes, int ano)
+    {
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(ano, mes, dia);
+        return diferencaDiasDataAtual(calendario);
+    }
+    
     public static int diferencaDiasDataAtual(Calendar calendario)
     {   return diferencaDias(Calendar.getInstance(), calendario);   }
     

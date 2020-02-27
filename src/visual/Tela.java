@@ -48,17 +48,34 @@ public class Tela extends javax.swing.JFrame
             lembretes.add(lembrete);
             try 
             {   
-                arquivo.gravarArquivo(lembretes);
-                jTabbedPaneLembretes.setSelectedIndex(0);
-                atualizarLista();
+                gravar();
                 limparNovoLembrete();
                 JOptionPane.showMessageDialog(this.getContentPane(), "Lembrete criado com sucesso.", "Sucesso ao criar lembrete", JOptionPane.INFORMATION_MESSAGE);
             } 
             catch (IOException ex) 
-            {   
-                Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex); 
-                JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao criar o lembrete.", "Falha ao criar lembrete", JOptionPane.ERROR_MESSAGE);
-            }
+            {   JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao salvar arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);    }
+        }
+        else
+            JOptionPane.showMessageDialog(this.getContentPane(), "A data final do lembrete deve ser superior a data atual.", "Falha ao criar lembrete", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    private void editarLembrete()
+    {
+        String []data = jFormattedTextFieldEditarDataLembrete.getText().split("/");
+        if(Data.diferencaDiasDataAtual(Integer.parseInt(data[0]), (Integer.parseInt(data[0])), Integer.parseInt(data[2])) > 0)
+        {
+            Lembrete lembrete = lembretes.get(Integer.parseInt(jTextFieldEditarIndex.getText()));
+            lembrete.setNome(jTextFieldEditarNomeLembrete.getText());
+            lembrete.setData(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]));
+            
+            try
+            {
+                gravar();
+                limparEditarLembrete();
+                JOptionPane.showMessageDialog(this.getContentPane(), "Lembrete editado com sucesso.", "Sucesso ao criar lembrete", JOptionPane.INFORMATION_MESSAGE);
+            } 
+            catch (IOException ex) 
+            {   JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao salvar arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);    }
         }
         else
             JOptionPane.showMessageDialog(this.getContentPane(), "A data final do lembrete deve ser superior a data atual.", "Falha ao criar lembrete", JOptionPane.ERROR_MESSAGE);
@@ -168,6 +185,13 @@ public class Tela extends javax.swing.JFrame
             configurado = false;
         }
         return configurado;
+    }
+    
+    private void gravar() throws IOException
+    {   
+        arquivo.gravarArquivo(lembretes);
+        atualizarLista();
+        jTabbedPaneLembretes.setSelectedIndex(0);
     }
     
     @SuppressWarnings("unchecked")
@@ -851,12 +875,7 @@ public class Tela extends javax.swing.JFrame
     }//GEN-LAST:event_jTextFieldEditarNomeLembreteActionPerformed
 
     private void jButtonEditarSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarSalvarActionPerformed
-        String []data = jFormattedTextFieldEditarDataLembrete.getText().split("/");
-        Lembrete lembrete = lembretes.get(Integer.parseInt(jTextFieldEditarIndex.getText()));
-        lembrete.setNome(jTextFieldEditarNomeLembrete.getText());
-        lembrete.setData(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]));
-        atualizarLista();
-        jTabbedPaneLembretes.setSelectedIndex(0);
+        editarLembrete();
     }//GEN-LAST:event_jButtonEditarSalvarActionPerformed
 
     private void jButtonEditarCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarCancelarActionPerformed
