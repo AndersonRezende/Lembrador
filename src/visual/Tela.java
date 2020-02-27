@@ -41,7 +41,7 @@ public class Tela extends javax.swing.JFrame
         String nome = jTextFieldNomeLembrete.getText();
         String descricao = jTextAreaDescricaoLembrete.getText();
         String []data = jFormattedTextFieldDataLembrete.getText().split("/");
-        Lembrete lembrete = new Lembrete(1, nome, Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]), descricao);
+        Lembrete lembrete = new Lembrete((lembretes.size() + 1), nome, Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]), descricao);
         if(Data.diferencaDiasDataAtual(lembrete.getData()) > 0)
         {
             lembretes.add(lembrete);
@@ -70,13 +70,30 @@ public class Tela extends javax.swing.JFrame
         jTextAreaDescricaoLembrete.setText("");
     }
     
+    private void limparDadosExibicao()
+    {
+        String semSelecao = "Nenhum item selecionado";
+        jLabelNome.setText(semSelecao);
+        jLabelData.setText(semSelecao);
+        jLabelDescricao.setText(semSelecao);
+        jLabelDias.setText(semSelecao);
+        
+        jButtonExcluir.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonVer.setEnabled(false);
+    }
+    
     private void atualizarLista()
     {
         jListLembretes.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = Lembrete.getListaNome(lembretes);
+            @Override
             public int getSize() { return strings.length; }
+            @Override
             public String getElementAt(int i) { return strings[i]; }
         });
+        jListLembretes.clearSelection();
+        limparDadosExibicao();
     }
     
     private void exibirData()
@@ -110,9 +127,9 @@ public class Tela extends javax.swing.JFrame
         jLabel3 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jListLembretes = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonVer = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabelNome = new javax.swing.JLabel();
@@ -130,8 +147,8 @@ public class Tela extends javax.swing.JFrame
         jTextFieldNomeLembrete = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jFormattedTextFieldDataLembrete = new javax.swing.JFormattedTextField();
-        jButtonCriar3 = new javax.swing.JButton();
-        jButtonCancelar3 = new javax.swing.JButton();
+        jButtonCriar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextAreaDescricaoLembrete = new javax.swing.JTextArea();
@@ -185,11 +202,19 @@ public class Tela extends javax.swing.JFrame
         });
         jScrollPane6.setViewportView(jListLembretes);
 
-        jButton1.setText("Excluir");
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.setEnabled(false);
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Editar");
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
 
-        jButton3.setText("Ver");
+        jButtonVer.setText("Ver");
+        jButtonVer.setEnabled(false);
 
         jLabel5.setText("Nome:");
 
@@ -261,11 +286,11 @@ public class Tela extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(jButtonVer)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonExcluir)
                         .addGap(215, 215, 215))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -291,9 +316,9 @@ public class Tela extends javax.swing.JFrame
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButtonExcluir)
+                    .addComponent(jButtonEditar)
+                    .addComponent(jButtonVer))
                 .addContainerGap())
         );
 
@@ -326,14 +351,14 @@ public class Tela extends javax.swing.JFrame
 
         jFormattedTextFieldDataLembrete.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
-        jButtonCriar3.setText("Criar");
-        jButtonCriar3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCriar.setText("Criar");
+        jButtonCriar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCriar3ActionPerformed(evt);
+                jButtonCriarActionPerformed(evt);
             }
         });
 
-        jButtonCancelar3.setText("Cancelar");
+        jButtonCancelar.setText("Cancelar");
 
         jLabel17.setText("Descrição:");
 
@@ -363,9 +388,9 @@ public class Tela extends javax.swing.JFrame
                                 .addComponent(jFormattedTextFieldDataLembrete))
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jButtonCriar3)
+                        .addComponent(jButtonCriar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar3)))
+                        .addComponent(jButtonCancelar)))
                 .addContainerGap(167, Short.MAX_VALUE))
             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -385,8 +410,8 @@ public class Tela extends javax.swing.JFrame
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCriar3)
-                    .addComponent(jButtonCancelar3))
+                    .addComponent(jButtonCriar)
+                    .addComponent(jButtonCancelar))
                 .addContainerGap(190, Short.MAX_VALUE))
         );
 
@@ -514,20 +539,34 @@ public class Tela extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonCriar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCriar3ActionPerformed
+    private void jButtonCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCriarActionPerformed
         checarCriarLembrete();
-    }//GEN-LAST:event_jButtonCriar3ActionPerformed
+    }//GEN-LAST:event_jButtonCriarActionPerformed
 
     private void jTextFieldNomeLembreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeLembreteActionPerformed
 
     }//GEN-LAST:event_jTextFieldNomeLembreteActionPerformed
 
     private void jListLembretesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListLembretesValueChanged
-        Lembrete lembrete = lembretes.get(jListLembretes.getSelectedIndex());
-        jLabelNome.setText(lembrete.getNome());
-        jLabelData.setText(lembrete.getDataFormatada());
-        jLabelDescricao.setText(lembrete.getDescricao());
-        jLabelDias.setText(""+lembrete.getDias());
+        if(jListLembretes.getSelectedIndex() >= 0)
+        {
+            jButtonExcluir.setEnabled(true);
+            jButtonEditar.setEnabled(true);
+            jButtonVer.setEnabled(true);
+            Lembrete lembrete = lembretes.get(jListLembretes.getSelectedIndex());
+            jLabelNome.setText(lembrete.getNome());
+            jLabelData.setText(lembrete.getDataFormatada());
+            jLabelDescricao.setText(lembrete.getDescricao());
+            if(lembrete.getDias() > 0)
+            {   jLabelDias.setText(""+lembrete.getDias());  }
+            else
+            {
+                if(lembrete.getDias() == 0)
+                    jLabelDias.setText("O lembrete termina hoje.");
+                else
+                    jLabelDias.setText("Lembrete finalizado há " + (lembrete.getDias() * (-1)) + " dia(s).");
+            }
+        }
     }//GEN-LAST:event_jListLembretesValueChanged
 
     private void jMenuItemNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNovoActionPerformed
@@ -560,13 +599,36 @@ public class Tela extends javax.swing.JFrame
         JOptionPane.showMessageDialog(this.getContentPane(), mensagem, "SOBRE", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItemSobreActionPerformed
 
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        int index = jListLembretes.getSelectedIndex();
+        if(index >= 0)
+        {
+            String texto = "Deseja excluir o item selecionado?\n"+lembretes.get(index).getNome();
+            int resultado = JOptionPane.showConfirmDialog(this.getContentPane(), texto, "Confirmação de exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            if(resultado == 0)
+            {
+                lembretes.remove(index);
+                try 
+                {   
+                    arquivo.gravarArquivo(lembretes);
+                    JOptionPane.showMessageDialog(this.getContentPane(), "Lembrete excluido com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                } 
+                catch (IOException ex) 
+                {   JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao tentar excluir o lembrete.", "Erro", JOptionPane.ERROR); }
+            }
+            atualizarLista();
+        }
+        else
+            JOptionPane.showMessageDialog(this.getContentPane(), "Nenhum item selecionado.", "Selecione um item", JOptionPane.ERROR);
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButtonCancelar3;
-    private javax.swing.JButton jButtonCriar3;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonCriar;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonVer;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataLembrete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
