@@ -81,6 +81,7 @@ public class Tela extends javax.swing.JFrame
         jButtonExcluir.setEnabled(false);
         jButtonEditar.setEnabled(false);
         jButtonVer.setEnabled(false);
+        jMenuItemExcluir.setEnabled(false);
     }
     
     private void atualizarLista()
@@ -112,6 +113,30 @@ public class Tela extends javax.swing.JFrame
             else
                 JOptionPane.showMessageDialog(this.getContentPane(), "Os campos nome e data não podem ficar em branco.", "Erro ao criar lembrete", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private void excluirLembrete()
+    {
+        int index = jListLembretes.getSelectedIndex();
+        if(index >= 0)
+        {
+            String texto = "Deseja excluir o item selecionado?\n"+lembretes.get(index).getNome();
+            int resultado = JOptionPane.showConfirmDialog(this.getContentPane(), texto, "Confirmação de exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            if(resultado == 0)
+            {
+                lembretes.remove(index);
+                try 
+                {   
+                    arquivo.gravarArquivo(lembretes);
+                    atualizarLista();
+                    JOptionPane.showMessageDialog(this.getContentPane(), "Lembrete excluido com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                } 
+                catch (IOException ex) 
+                {   JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao tentar excluir o lembrete.", "Erro", JOptionPane.ERROR); }
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(this.getContentPane(), "Nenhum item selecionado.", "Selecione um item", JOptionPane.ERROR);
     }
     
     @SuppressWarnings("unchecked")
@@ -163,6 +188,7 @@ public class Tela extends javax.swing.JFrame
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenuEditar = new javax.swing.JMenu();
+        jMenuItemExcluir = new javax.swing.JMenuItem();
         jMenuAjuda = new javax.swing.JMenu();
         jMenuItemSobre = new javax.swing.JMenuItem();
 
@@ -498,6 +524,18 @@ public class Tela extends javax.swing.JFrame
 
         jMenuEditar.setMnemonic('E');
         jMenuEditar.setText("Editar");
+
+        jMenuItemExcluir.setMnemonic('E');
+        jMenuItemExcluir.setText("Excluir");
+        jMenuItemExcluir.setToolTipText("");
+        jMenuItemExcluir.setEnabled(false);
+        jMenuItemExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExcluirActionPerformed(evt);
+            }
+        });
+        jMenuEditar.add(jMenuItemExcluir);
+
         jMenuBar.add(jMenuEditar);
 
         jMenuAjuda.setMnemonic('j');
@@ -553,6 +591,8 @@ public class Tela extends javax.swing.JFrame
             jButtonExcluir.setEnabled(true);
             jButtonEditar.setEnabled(true);
             jButtonVer.setEnabled(true);
+            jMenuItemExcluir.setEnabled(true);
+            
             Lembrete lembrete = lembretes.get(jListLembretes.getSelectedIndex());
             jLabelNome.setText(lembrete.getNome());
             jLabelData.setText(lembrete.getDataFormatada());
@@ -600,27 +640,12 @@ public class Tela extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuItemSobreActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        int index = jListLembretes.getSelectedIndex();
-        if(index >= 0)
-        {
-            String texto = "Deseja excluir o item selecionado?\n"+lembretes.get(index).getNome();
-            int resultado = JOptionPane.showConfirmDialog(this.getContentPane(), texto, "Confirmação de exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-            if(resultado == 0)
-            {
-                lembretes.remove(index);
-                try 
-                {   
-                    arquivo.gravarArquivo(lembretes);
-                    JOptionPane.showMessageDialog(this.getContentPane(), "Lembrete excluido com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                } 
-                catch (IOException ex) 
-                {   JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao tentar excluir o lembrete.", "Erro", JOptionPane.ERROR); }
-            }
-            atualizarLista();
-        }
-        else
-            JOptionPane.showMessageDialog(this.getContentPane(), "Nenhum item selecionado.", "Selecione um item", JOptionPane.ERROR);
+        excluirLembrete();
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jMenuItemExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExcluirActionPerformed
+        excluirLembrete();
+    }//GEN-LAST:event_jMenuItemExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -651,6 +676,7 @@ public class Tela extends javax.swing.JFrame
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuEditar;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemExcluir;
     private javax.swing.JMenuItem jMenuItemNovo;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemSalvar;
