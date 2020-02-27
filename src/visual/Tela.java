@@ -6,6 +6,7 @@
 package visual;
 
 import gerenciador.Arquivo;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -221,6 +222,11 @@ public class Tela extends javax.swing.JFrame
             public String getElementAt(int i) { return strings[i]; }
         });
         jListLembretes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListLembretes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jListLembretesKeyReleased(evt);
+            }
+        });
         jListLembretes.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jListLembretesValueChanged(evt);
@@ -646,6 +652,11 @@ public class Tela extends javax.swing.JFrame
     private void jMenuItemExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExcluirActionPerformed
         excluirLembrete();
     }//GEN-LAST:event_jMenuItemExcluirActionPerformed
+
+    private void jListLembretesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jListLembretesKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_DELETE)
+            excluirLembrete();
+    }//GEN-LAST:event_jListLembretesKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
