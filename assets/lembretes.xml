@@ -29,7 +29,7 @@
 <dia>25</dia>
 <mes>4</mes>
 <ano>2020</ano>
-<descricao>Agendar verificaÃÂÃÂ§ÃÂÃÂ£o de dados com a aluna.</descricao>
+<descricao>Agendar verificação de dados com a aluna.</descricao>
 </lembrete>
 <lembrete>
 <id>1</id>
@@ -37,7 +37,7 @@
 <dia>1</dia>
 <mes>6</mes>
 <ano>2020</ano>
-<descricao>MatrÃÂ­cula aberta.</descricao>
+<descricao>Matrícula aberta.</descricao>
 </lembrete>
 <lembrete>
 <id>1</id>
@@ -45,7 +45,7 @@
 <dia>30</dia>
 <mes>5</mes>
 <ano>2020</ano>
-<descricao>MatrÃ­cula aberta.</descricao>
+<descricao>Matrícula aberta.</descricao>
 </lembrete>
 <lembrete>
 <id>1</id>
@@ -54,5 +54,13 @@
 <mes>2</mes>
 <ano>2020</ano>
 <descricao>Assistir série.</descricao>
+</lembrete>
+<lembrete>
+<id>1</id>
+<nome>Aluno Avan Jogia</nome>
+<dia>26</dia>
+<mes>4</mes>
+<ano>2020</ano>
+<descricao>Lembrar de assistir a série.</descricao>
 </lembrete>
 </lembretes>

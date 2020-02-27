@@ -9,7 +9,6 @@ import gerenciador.Arquivo;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -121,6 +120,8 @@ public class Tela extends javax.swing.JFrame
         jLabelData = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabelDescricao = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelDias = new javax.swing.JLabel();
         jPanelLembreteNovo = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -202,6 +203,10 @@ public class Tela extends javax.swing.JFrame
 
         jLabelDescricao.setText("Nenhum item selecionado");
 
+        jLabel1.setText("Dias até finalizar:");
+
+        jLabelDias.setText("Nenhum item selecionado");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -220,7 +225,11 @@ public class Tela extends javax.swing.JFrame
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelNome)))
+                        .addComponent(jLabelNome))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelDias)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -237,7 +246,11 @@ public class Tela extends javax.swing.JFrame
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(jLabelDescricao))
-                .addGap(0, 140, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabelDias))
+                .addGap(0, 118, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -353,7 +366,7 @@ public class Tela extends javax.swing.JFrame
                         .addComponent(jButtonCriar3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancelar3)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
@@ -514,6 +527,7 @@ public class Tela extends javax.swing.JFrame
         jLabelNome.setText(lembrete.getNome());
         jLabelData.setText(lembrete.getDataFormatada());
         jLabelDescricao.setText(lembrete.getDescricao());
+        jLabelDias.setText(""+lembrete.getDias());
     }//GEN-LAST:event_jListLembretesValueChanged
 
     private void jMenuItemNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNovoActionPerformed
@@ -554,6 +568,7 @@ public class Tela extends javax.swing.JFrame
     private javax.swing.JButton jButtonCancelar3;
     private javax.swing.JButton jButtonCriar3;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataLembrete;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -566,6 +581,7 @@ public class Tela extends javax.swing.JFrame
     private javax.swing.JLabel jLabelData;
     private javax.swing.JLabel jLabelDataAtual;
     private javax.swing.JLabel jLabelDescricao;
+    private javax.swing.JLabel jLabelDias;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JList<String> jListLembretes;
     private javax.swing.JMenu jMenuAjuda;

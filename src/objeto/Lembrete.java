@@ -18,6 +18,7 @@ public class Lembrete
     private String nome;
     private Calendar data = Calendar.getInstance();
     private String descricao;
+    private int dias;
 
     public Lembrete(int id, String nome, Calendar data, String descricao) 
     {
@@ -25,6 +26,7 @@ public class Lembrete
         this.nome = nome;
         this.data = data;
         this.descricao = descricao;
+        this.dias = Data.diferencaDiasDataAtual(data);
     }
     
     public Lembrete(int id, String nome, int dia, int mes, int ano, String descricao) 
@@ -33,6 +35,7 @@ public class Lembrete
         this.nome = nome;
         this.data.set(ano, mes - 1, dia);
         this.descricao = descricao;
+        this.dias = Data.diferencaDiasDataAtual(data);
     }
 
     public int getId() 
@@ -58,6 +61,9 @@ public class Lembrete
 
     public String getDescricao() 
     {   return descricao;   }
+    
+    public int getDias()
+    {   return dias;    }
 
     public void setId(int id) 
     {   this.id = id;   }
@@ -73,6 +79,9 @@ public class Lembrete
 
     public void setDescricao(String descricao) 
     {   this.descricao = descricao; }
+    
+    public void setDias(int dias)
+    {   this.dias = dias;   }
     
     public static String[] getListaNome(ArrayList<Lembrete> lembretes)
     {

@@ -67,7 +67,7 @@ public class Arquivo
         
         if(arquivo.exists())
         {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(arquivo.getAbsolutePath()), "ISO-8859-1"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(arquivo.getAbsolutePath()), "UTF-8"));
             
             while(br.ready())
             {

@@ -14,19 +14,13 @@ import java.util.Calendar;
 public class Data 
 {
     public static String dataAtual()
-    {
-        Calendar calendario = Calendar.getInstance();
-        String data = calendario.get(Calendar.DAY_OF_MONTH) + "/";
-        data += calendario.get(Calendar.MONTH) + "/";
-        data += calendario.get(Calendar.YEAR) + "";
-        return data;
-    }
+    {   return formatarData(Calendar.getInstance());    }
     
     public static String formatarData(Calendar calendario)
     {
         String dataFormatada = "";
         dataFormatada = calendario.get(Calendar.DAY_OF_MONTH) + "/";
-        dataFormatada += calendario.get(Calendar.MONTH) + "/";
+        dataFormatada += (calendario.get(Calendar.MONTH) + 1) + "/";
         dataFormatada += calendario.get(Calendar.YEAR) + "";
         return dataFormatada;
     }
