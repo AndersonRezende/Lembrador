@@ -10,12 +10,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import objeto.Lembrete;
 
@@ -51,6 +51,14 @@ public class Arquivo
     
     public Arquivo(String caminho)
     {   this.arquivo = new File(caminho);   }
+    
+    public Arquivo(URL caminho)
+    {   
+        try 
+        {   this.arquivo = new File(caminho.toURI());   } 
+        catch (URISyntaxException ex) 
+        {   System.out.println("Falha ao tentar ler arquivo");  }
+    }
             
     private String pegarElemento(String linha, String abreElemento, String fechaElemento)
     {
@@ -128,8 +136,15 @@ public class Arquivo
     {
         int index = 0;
         
-        if(arquivo.exists())
-        {   arquivo.createNewFile();    }
+        if(!arquivo.exists())
+        {
+            String diretorio = arquivo.getCanonicalPath().replace(arquivo.getName(), "");
+            File dir = new File(diretorio);
+            dir.mkdirs();
+            
+            if(arquivo.createNewFile())    
+                System.out.println("Arquivo criado em: "+arquivo.getCanonicalPath());
+        }
         
         
         FileWriter fw = new FileWriter(arquivo, false);

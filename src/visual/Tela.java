@@ -5,13 +5,12 @@
  */
 package visual;
 
+import arquivo.imagem.GerenciadorImagem;
 import gerenciador.Arquivo;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import objeto.Data;
@@ -23,37 +22,36 @@ import objeto.Lembrete;
  */
 public class Tela extends javax.swing.JFrame 
 {
-    private Arquivo arquivo;
+    private final Arquivo arquivo;
     private ArrayList<Lembrete> lembretes;
-    private final String separadorSistema = System.getProperty("file.separator");
+    private final String separador = System.getProperty("file.separator");
     private final String caminhoSistema = System.getProperty("user.dir");
-    private final String caminhoAssets = caminhoSistema + separadorSistema + "assets" + separadorSistema;
-    private final String caminhoImagens = caminhoAssets + "imagens" + separadorSistema;
+    private final String caminhoAssets = caminhoSistema + separador + "assets" + separador;
+    
     /**
      * Creates new form Tela
+     * @throws java.io.UnsupportedEncodingException
      */
     public Tela() throws UnsupportedEncodingException, IOException 
     {
         super("Lembrador");
         arquivo = new Arquivo(caminhoAssets + "lembretes.xml");
         lembretes = arquivo.lerArquivo();
-        initComponents();
-        ImageIcon iconeJanela = new ImageIcon(caminhoImagens + "timer.png");
-        setIconImage(iconeJanela.getImage());
+        initComponents(); 
         configurarImagens();
         this.setSize(1000, 800);
         exibirData();
-        
         atualizarLista();
     }
     
     private void configurarImagens()
     {
-        jButtonAtualizar.setIcon(new ImageIcon(caminhoImagens + "atualizar.png"));
-        jButtonNovoLembrete.setIcon(new ImageIcon(caminhoImagens + "novo.png"));
-        jButtonEditar.setIcon(new ImageIcon(caminhoImagens + "editar.png"));
-        jButtonExcluir.setIcon(new ImageIcon(caminhoImagens + "deletar.png"));
-        
+        ImageIcon iconeJanela = new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.TIMER));
+        this.setIconImage(iconeJanela.getImage());
+        jButtonAtualizar.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.ATUALIZAR)));
+        jButtonNovoLembrete.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.NOVO)));
+        jButtonEditar.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.EDITAR)));
+        jButtonExcluir.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.DELETAR)));
     }
     
     private void criarLembrete()
