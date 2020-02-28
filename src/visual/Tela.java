@@ -10,8 +10,6 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import objeto.Data;
 import objeto.Lembrete;
@@ -29,9 +27,11 @@ public class Tela extends javax.swing.JFrame
      */
     public Tela() throws UnsupportedEncodingException, IOException 
     {
+        super("Lembrador");
         arquivo = new Arquivo("/home/anderson/Documentos/Documentos/Projetos/Java/NetBeansProjects/Lembrador/assets/lembretes.xml");
         lembretes = arquivo.lerArquivo();
         initComponents();
+        this.setSize(1000, 800);
         exibirData();
         
         atualizarLista();
@@ -265,6 +265,7 @@ public class Tela extends javax.swing.JFrame
         jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lembrador");
         setPreferredSize(new java.awt.Dimension(800, 800));
 
         jTabbedPaneLembretes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -609,14 +610,13 @@ public class Tela extends javax.swing.JFrame
                         .addComponent(jButtonEditarSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonEditarCancelar))
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(jTextFieldEditarNomeLembrete, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel21)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jFormattedTextFieldEditarDataLembrete))
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jTextFieldEditarNomeLembrete, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jFormattedTextFieldEditarDataLembrete))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(180, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(

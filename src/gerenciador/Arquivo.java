@@ -103,7 +103,20 @@ public class Arquivo
                 if(linha.contains(FECHA_LEMBRETE))
                 {   
                     Lembrete lembrete = new Lembrete(Integer.parseInt(id), nome,  Integer.parseInt(dia), Integer.parseInt(mes), Integer.parseInt(ano), descricao);
-                    lembretes.add(lembrete);
+                    //lembretes.add(lembrete);
+                    int index = 0;
+                    boolean inseriu = false;
+                    while(index < lembretes.size() && !inseriu)
+                    {
+                        if(lembrete.getDias() < lembretes.get(index).getDias())
+                        {
+                            lembretes.add(index, lembrete);
+                            inseriu = true;
+                        }
+                        index++;
+                    }
+                    if(!inseriu)
+                        lembretes.add(lembrete);
                 }
             }
         }
