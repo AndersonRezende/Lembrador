@@ -6,12 +6,13 @@
 package visual;
 
 import gerenciador.Arquivo;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import objeto.Data;
 import objeto.Lembrete;
@@ -24,19 +25,35 @@ public class Tela extends javax.swing.JFrame
 {
     private Arquivo arquivo;
     private ArrayList<Lembrete> lembretes;
+    private final String separadorSistema = System.getProperty("file.separator");
+    private final String caminhoSistema = System.getProperty("user.dir");
+    private final String caminhoAssets = caminhoSistema + separadorSistema + "assets" + separadorSistema;
+    private final String caminhoImagens = caminhoAssets + "imagens" + separadorSistema;
     /**
      * Creates new form Tela
      */
     public Tela() throws UnsupportedEncodingException, IOException 
     {
         super("Lembrador");
-        arquivo = new Arquivo("/home/anderson/Documentos/Documentos/Projetos/Java/NetBeansProjects/Lembrador/assets/lembretes.xml");
+        arquivo = new Arquivo(caminhoAssets + "lembretes.xml");
         lembretes = arquivo.lerArquivo();
         initComponents();
+        ImageIcon iconeJanela = new ImageIcon(caminhoImagens + "timer.png");
+        setIconImage(iconeJanela.getImage());
+        configurarImagens();
         this.setSize(1000, 800);
         exibirData();
         
         atualizarLista();
+    }
+    
+    private void configurarImagens()
+    {
+        jButtonAtualizar.setIcon(new ImageIcon(caminhoImagens + "atualizar.png"));
+        jButtonNovoLembrete.setIcon(new ImageIcon(caminhoImagens + "novo.png"));
+        jButtonEditar.setIcon(new ImageIcon(caminhoImagens + "editar.png"));
+        jButtonExcluir.setIcon(new ImageIcon(caminhoImagens + "deletar.png"));
+        
     }
     
     private void criarLembrete()
@@ -64,7 +81,7 @@ public class Tela extends javax.swing.JFrame
     private void editarLembrete()
     {
         String []data = jFormattedTextFieldEditarDataLembrete.getText().split("/");
-        if(Data.diferencaDiasDataAtual(Integer.parseInt(data[0]), (Integer.parseInt(data[0])), Integer.parseInt(data[2])) > 0)
+        if(Data.diferencaDiasDataAtual(Integer.parseInt(data[0]), (Integer.parseInt(data[1]) - 1), Integer.parseInt(data[2])) > 0)
         {
             Lembrete lembrete = lembretes.get(Integer.parseInt(jTextFieldEditarIndex.getText()));
             lembrete.setNome(jTextFieldEditarNomeLembrete.getText());
@@ -142,7 +159,6 @@ public class Tela extends javax.swing.JFrame
         
         jButtonExcluir.setEnabled(false);
         jButtonEditar.setEnabled(false);
-        jButtonVer.setEnabled(false);
         jMenuItemExcluir.setEnabled(false);
     }
     
@@ -219,9 +235,6 @@ public class Tela extends javax.swing.JFrame
         jLabel3 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jListLembretes = new javax.swing.JList<>();
-        jButtonExcluir = new javax.swing.JButton();
-        jButtonEditar = new javax.swing.JButton();
-        jButtonVer = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabelNome = new javax.swing.JLabel();
@@ -231,7 +244,6 @@ public class Tela extends javax.swing.JFrame
         jLabelDescricao = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabelDias = new javax.swing.JLabel();
-        jButtonNovoLembrete = new javax.swing.JButton();
         jPanelLembreteNovo = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -262,6 +274,10 @@ public class Tela extends javax.swing.JFrame
         jPanel4 = new javax.swing.JPanel();
         jLabelDataAtual = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jButtonAtualizar = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonNovoLembrete = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuArquivo = new javax.swing.JMenu();
         jMenuItemNovo = new javax.swing.JMenuItem();
@@ -316,25 +332,6 @@ public class Tela extends javax.swing.JFrame
             }
         });
         jScrollPane6.setViewportView(jListLembretes);
-
-        jButtonExcluir.setText("Excluir");
-        jButtonExcluir.setEnabled(false);
-        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonExcluirActionPerformed(evt);
-            }
-        });
-
-        jButtonEditar.setText("Editar");
-        jButtonEditar.setEnabled(false);
-        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEditarActionPerformed(evt);
-            }
-        });
-
-        jButtonVer.setText("Ver");
-        jButtonVer.setEnabled(false);
 
         jLabel5.setText("Nome:");
 
@@ -398,36 +395,17 @@ public class Tela extends javax.swing.JFrame
                 .addGap(0, 118, Short.MAX_VALUE))
         );
 
-        jButtonNovoLembrete.setText("Novo");
-        jButtonNovoLembrete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNovoLembreteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonNovoLembrete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonVer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonExcluir)
-                        .addGap(215, 215, 215))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -444,13 +422,7 @@ public class Tela extends javax.swing.JFrame
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonExcluir)
-                    .addComponent(jButtonEditar)
-                    .addComponent(jButtonVer)
-                    .addComponent(jButtonNovoLembrete))
-                .addContainerGap())
+                .addGap(54, 54, 54))
         );
 
         javax.swing.GroupLayout jPanelLembreteAtualLayout = new javax.swing.GroupLayout(jPanelLembreteAtual);
@@ -692,15 +664,60 @@ public class Tela extends javax.swing.JFrame
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        jButtonAtualizar.setText("Atualizar");
+        jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarActionPerformed(evt);
+            }
+        });
+
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+
+        jButtonNovoLembrete.setText("Novo");
+        jButtonNovoLembrete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovoLembreteActionPerformed(evt);
+            }
+        });
+
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.setEnabled(false);
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonNovoLembrete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonAtualizar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 14, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAtualizar)
+                    .addComponent(jButtonEditar)
+                    .addComponent(jButtonNovoLembrete)
+                    .addComponent(jButtonExcluir)))
         );
 
         jMenuArquivo.setMnemonic('A');
@@ -817,7 +834,6 @@ public class Tela extends javax.swing.JFrame
         {
             jButtonExcluir.setEnabled(true);
             jButtonEditar.setEnabled(true);
-            jButtonVer.setEnabled(true);
             jMenuItemExcluir.setEnabled(true);
             
             Lembrete lembrete = lembretes.get(jListLembretes.getSelectedIndex());
@@ -932,8 +948,16 @@ public class Tela extends javax.swing.JFrame
         {   JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao ler arquivo.\nTente novamente.", "Erro ao tentar atualizar", JOptionPane.ERROR_MESSAGE); }
     }//GEN-LAST:event_jMenuItemAtualizarActionPerformed
 
+    private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
+        try 
+        {   recarregar();   } 
+        catch (IOException ex) 
+        {   JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao ler arquivo.\nTente novamente.", "Erro ao tentar atualizar", JOptionPane.ERROR_MESSAGE); }
+    }//GEN-LAST:event_jButtonAtualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonCriar;
     private javax.swing.JButton jButtonEditar;
@@ -941,7 +965,6 @@ public class Tela extends javax.swing.JFrame
     private javax.swing.JButton jButtonEditarSalvar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonNovoLembrete;
-    private javax.swing.JButton jButtonVer;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataLembrete;
     private javax.swing.JFormattedTextField jFormattedTextFieldEditarDataLembrete;
     private javax.swing.JLabel jLabel1;
