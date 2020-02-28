@@ -10,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import objeto.Data;
 import objeto.Lembrete;
@@ -103,6 +105,16 @@ public class Tela extends javax.swing.JFrame
         }
         else
             JOptionPane.showMessageDialog(this.getContentPane(), "Nenhum item selecionado.", "Selecione um item", JOptionPane.ERROR);
+    }
+    
+    private void recarregar() throws UnsupportedEncodingException, IOException
+    {
+        lembretes = arquivo.lerArquivo();
+        atualizarLista();
+        limparDadosExibicao();
+        limparEditarLembrete();
+        limparNovoLembrete();
+        jTabbedPaneLembretes.setSelectedIndex(0);
     }
     
     private void limparNovoLembrete()
@@ -258,6 +270,7 @@ public class Tela extends javax.swing.JFrame
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenuEditar = new javax.swing.JMenu();
+        jMenuItemAtualizar = new javax.swing.JMenuItem();
         jMenuItemExcluir = new javax.swing.JMenuItem();
         jMenuAjuda = new javax.swing.JMenu();
         jMenuItemSobre = new javax.swing.JMenuItem();
@@ -729,6 +742,16 @@ public class Tela extends javax.swing.JFrame
         jMenuEditar.setMnemonic('E');
         jMenuEditar.setText("Editar");
 
+        jMenuItemAtualizar.setMnemonic('A');
+        jMenuItemAtualizar.setText("Atualizar");
+        jMenuItemAtualizar.setToolTipText("");
+        jMenuItemAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAtualizarActionPerformed(evt);
+            }
+        });
+        jMenuEditar.add(jMenuItemAtualizar);
+
         jMenuItemExcluir.setMnemonic('E');
         jMenuItemExcluir.setText("Excluir");
         jMenuItemExcluir.setToolTipText("");
@@ -863,6 +886,13 @@ public class Tela extends javax.swing.JFrame
     private void jListLembretesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jListLembretesKeyReleased
         if(evt.getKeyCode() == KeyEvent.VK_DELETE)
             excluirLembrete();
+        if(evt.getKeyCode() == KeyEvent.VK_F5)
+        {
+            try 
+            {   recarregar();   } 
+            catch (IOException ex) 
+            {   JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao ler arquivo.\nTente novamente.", "Erro ao tentar atualizar", JOptionPane.ERROR_MESSAGE); }
+        }
     }//GEN-LAST:event_jListLembretesKeyReleased
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -894,6 +924,13 @@ public class Tela extends javax.swing.JFrame
     private void jButtonNovoLembreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoLembreteActionPerformed
         jTabbedPaneLembretes.setSelectedIndex(1);
     }//GEN-LAST:event_jButtonNovoLembreteActionPerformed
+
+    private void jMenuItemAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAtualizarActionPerformed
+        try 
+        {   recarregar();   } 
+        catch (IOException ex) 
+        {   JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao ler arquivo.\nTente novamente.", "Erro ao tentar atualizar", JOptionPane.ERROR_MESSAGE); }
+    }//GEN-LAST:event_jMenuItemAtualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -932,6 +969,7 @@ public class Tela extends javax.swing.JFrame
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuEditar;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemAtualizar;
     private javax.swing.JMenuItem jMenuItemExcluir;
     private javax.swing.JMenuItem jMenuItemNovo;
     private javax.swing.JMenuItem jMenuItemSair;

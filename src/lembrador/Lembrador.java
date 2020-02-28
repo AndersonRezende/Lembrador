@@ -5,14 +5,9 @@
  */
 package lembrador;
 
-import gerenciador.Arquivo;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import objeto.Lembrete;
 import visual.Tela;
 
 /**
