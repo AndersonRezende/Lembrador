@@ -52,6 +52,7 @@ public class Tela extends javax.swing.JFrame
         jButtonNovoLembrete.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.NOVO)));
         jButtonEditar.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.EDITAR)));
         jButtonExcluir.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.DELETAR)));
+        jButtonSobre.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.INFO)));
     }
     
     private void criarLembrete()
@@ -276,6 +277,7 @@ public class Tela extends javax.swing.JFrame
         jButtonEditar = new javax.swing.JButton();
         jButtonNovoLembrete = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
+        jButtonSobre = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuArquivo = new javax.swing.JMenu();
         jMenuItemNovo = new javax.swing.JMenuItem();
@@ -692,6 +694,13 @@ public class Tela extends javax.swing.JFrame
             }
         });
 
+        jButtonSobre.setText("Sobre");
+        jButtonSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSobreActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -705,6 +714,8 @@ public class Tela extends javax.swing.JFrame
                 .addComponent(jButtonExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAtualizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonSobre)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -715,7 +726,8 @@ public class Tela extends javax.swing.JFrame
                     .addComponent(jButtonAtualizar)
                     .addComponent(jButtonEditar)
                     .addComponent(jButtonNovoLembrete)
-                    .addComponent(jButtonExcluir)))
+                    .addComponent(jButtonExcluir)
+                    .addComponent(jButtonSobre)))
         );
 
         jMenuArquivo.setMnemonic('A');
@@ -948,6 +960,10 @@ public class Tela extends javax.swing.JFrame
         {   JOptionPane.showMessageDialog(this.getContentPane(), "Falha ao ler arquivo.\nTente novamente.", "Erro ao tentar atualizar", JOptionPane.ERROR_MESSAGE); }
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
 
+    private void jButtonSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSobreActionPerformed
+        Sobre sobre = new Sobre(this, true);
+    }//GEN-LAST:event_jButtonSobreActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
@@ -958,6 +974,7 @@ public class Tela extends javax.swing.JFrame
     private javax.swing.JButton jButtonEditarSalvar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonNovoLembrete;
+    private javax.swing.JButton jButtonSobre;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataLembrete;
     private javax.swing.JFormattedTextField jFormattedTextFieldEditarDataLembrete;
     private javax.swing.JLabel jLabel1;

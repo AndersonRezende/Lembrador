@@ -20,6 +20,7 @@ public class GerenciadorImagem
     public static final String SAIR = "sair.png";
     public static final String TIMER = "timer.png";
     public static final String TIMER48X = "timer48x.png";
+    public static final String INFO = "info.png";
     
     public static URL getImagemUrl(String imagem)
     {
