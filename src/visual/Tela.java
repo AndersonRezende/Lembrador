@@ -881,12 +881,7 @@ public class Tela extends javax.swing.JFrame
     }//GEN-LAST:event_jTabbedPaneLembretesStateChanged
 
     private void jMenuItemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSobreActionPerformed
-        String mensagem = "SOBRE\n\n"
-                + "Lembrete é um software produzido com o objetivo de auxiliar seus usuários a \n"
-                + "lembrarem de atividades cadastradas previamentes no sistema, o mesmo é capaz \n"
-                + "de exibir alertas informando a quantidade de dias restantes até o seu término.\n"
-                + "\n\tEntre em contato para mais dúvidas: andersonrezende17@hotmail.com";
-        JOptionPane.showMessageDialog(this.getContentPane(), mensagem, "SOBRE", JOptionPane.INFORMATION_MESSAGE);
+        Sobre sobre = new Sobre(this, true);
     }//GEN-LAST:event_jMenuItemSobreActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
