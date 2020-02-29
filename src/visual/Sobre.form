@@ -209,7 +209,7 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="contentType" type="java.lang.String" value="text/html" noResource="true"/>
-                <Property name="text" type="java.lang.String" value="&lt;HTML&gt;&lt;BODY&gt;   &lt;strong&gt;Vers&#xe3;o do produto:&lt;/strong&gt; Lembrador 1.0 (Build 202002281816)&lt;br&gt;  &lt;strong&gt;Status:&lt;/strong&gt; Vers&#xe3;o 1.0 est&#xe1;vel&lt;br&gt;  &lt;strong&gt;E-mail:&lt;/strong&gt; andersonrezende17@hotmail.com&lt;br&gt;  &lt;strong&gt;Projeto:&lt;/strong&gt; &lt;a href=&quot;https://github.com/AndersonRezende/Lembrador&quot;&gt;Github&lt;/a&gt;&lt;br&gt; &lt;/CODE&gt;&lt;/BODY&gt;&lt;/HTML&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;HTML&gt;&lt;BODY&gt;   &lt;strong&gt;Vers&#xe3;o do produto:&lt;/strong&gt; Lembrador 1.0 (Build 202002281816)&lt;br&gt;  &lt;strong&gt;Status:&lt;/strong&gt; Vers&#xe3;o 1.0 est&#xe1;vel&lt;br&gt;  &lt;strong&gt;E-mail:&lt;/strong&gt; andersonrezende17@hotmail.com&lt;br&gt;  &lt;strong&gt;Projeto:&lt;/strong&gt; https://github.com/AndersonRezende/Lembrador&lt;br&gt; &lt;/CODE&gt;&lt;/BODY&gt;&lt;/HTML&gt;"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
             </Component>

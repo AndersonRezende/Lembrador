@@ -133,7 +133,7 @@ public class Sobre extends javax.swing.JDialog {
 
         jTextPaneInformacoes.setEditable(false);
         jTextPaneInformacoes.setContentType("text/html"); // NOI18N
-        jTextPaneInformacoes.setText("<HTML><BODY>   <strong>Versão do produto:</strong> Lembrador 1.0 (Build 202002281816)<br>  <strong>Status:</strong> Versão 1.0 estável<br>  <strong>E-mail:</strong> andersonrezende17@hotmail.com<br>  <strong>Projeto:</strong> <a href=\"https://github.com/AndersonRezende/Lembrador\">Github</a><br> </CODE></BODY></HTML>");
+        jTextPaneInformacoes.setText("<HTML><BODY>   <strong>Versão do produto:</strong> Lembrador 1.0 (Build 202002281816)<br>  <strong>Status:</strong> Versão 1.0 estável<br>  <strong>E-mail:</strong> andersonrezende17@hotmail.com<br>  <strong>Projeto:</strong> https://github.com/AndersonRezende/Lembrador<br> </CODE></BODY></HTML>");
         jTextPaneInformacoes.setToolTipText("");
         jScrollPane1.setViewportView(jTextPaneInformacoes);
 
