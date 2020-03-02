@@ -26,7 +26,7 @@ public class Tela extends javax.swing.JFrame
     private ArrayList<Lembrete> lembretes;
     private final String separador = System.getProperty("file.separator");
     private final String caminhoSistema = System.getProperty("user.dir");
-    private final String caminhoAssets = caminhoSistema + separador + "assets" + separador;
+    private final String caminhoLembretes = caminhoSistema + separador + "lembretes.xml";
     
     /**
      * Creates new form Tela
@@ -35,7 +35,7 @@ public class Tela extends javax.swing.JFrame
     public Tela() throws UnsupportedEncodingException, IOException 
     {
         super("Lembrador");
-        arquivo = new Arquivo(caminhoAssets + "lembretes.xml");
+        arquivo = new Arquivo(caminhoLembretes);
         lembretes = arquivo.lerArquivo();
         initComponents(); 
         configurarImagens();
@@ -43,7 +43,7 @@ public class Tela extends javax.swing.JFrame
         exibirData();
         atualizarLista();
     }
-    
+        
     private void configurarImagens()
     {
         ImageIcon iconeJanela = new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.TIMER));
