@@ -7,11 +7,22 @@ package visual;
 
 import arquivo.imagem.GerenciadorImagem;
 import gerenciador.Arquivo;
+import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import objeto.Data;
 import objeto.Lembrete;
@@ -39,6 +50,7 @@ public class Tela extends javax.swing.JFrame
         lembretes = arquivo.lerArquivo();
         initComponents(); 
         configurarImagens();
+        configurarSystemTray();
         this.setSize(1000, 800);
         exibirData();
         atualizarLista();
@@ -46,13 +58,48 @@ public class Tela extends javax.swing.JFrame
         
     private void configurarImagens()
     {
-        ImageIcon iconeJanela = new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.TIMER));
+        iconeJanela = new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.TIMER));
         this.setIconImage(iconeJanela.getImage());
         jButtonAtualizar.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.ATUALIZAR)));
         jButtonNovoLembrete.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.NOVO)));
         jButtonEditar.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.EDITAR)));
         jButtonExcluir.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.DELETAR)));
         jButtonSobre.setIcon(new ImageIcon(GerenciadorImagem.getImagemUrl(GerenciadorImagem.INFO)));
+    }
+    
+    private void configurarSystemTray()
+    {
+        String texto = "Lembrador.";
+        
+        tray = SystemTray.getSystemTray();
+        Image image = iconeJanela.getImage();
+        popupTray = new PopupMenu();
+        
+        menuItemExibirOcultarTray = new MenuItem("Exibir/Ocultar");
+        menuItemExibirOcultarTray.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {   menuItemExibirOcultarTrayActionPerformed(e);  }
+        });
+        menuItemSairTray = new MenuItem("Sair");
+        menuItemSairTray.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {   menuItemSairTrayActionPerformed(e);  }
+        });
+        
+        popupTray.add(menuItemExibirOcultarTray);
+        popupTray.add(menuItemSairTray);
+        
+        trayIcon = new TrayIcon(image, texto, popupTray);
+        trayIcon.setImageAutoSize(true);
+        try 
+        {   
+            tray.add(trayIcon);   
+            this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        } 
+        catch (AWTException e) 
+        {   System.err.println("Não pode adicionar a tray");    }
     }
     
     private void criarLembrete()
@@ -155,6 +202,7 @@ public class Tela extends javax.swing.JFrame
         jLabelData.setText(semSelecao);
         jLabelDescricao.setText(semSelecao);
         jLabelDias.setText(semSelecao);
+        jLabelDias.setForeground(Color.black);
         
         jButtonExcluir.setEnabled(false);
         jButtonEditar.setEnabled(false);
@@ -851,13 +899,22 @@ public class Tela extends javax.swing.JFrame
             jLabelData.setText(lembrete.getDataFormatada());
             jLabelDescricao.setText(lembrete.getDescricao());
             if(lembrete.getDias() > 0)
-            {   jLabelDias.setText(""+lembrete.getDias());  }
+            {   
+                jLabelDias.setText(""+lembrete.getDias());  
+                jLabelDias.setForeground(Color.blue);
+            }
             else
             {
                 if(lembrete.getDias() == 0)
+                {
                     jLabelDias.setText("O lembrete termina hoje.");
+                    jLabelDias.setForeground(Color.magenta);
+                }
                 else
+                {
                     jLabelDias.setText("Lembrete finalizado há " + (lembrete.getDias() * (-1)) + " dia(s).");
+                    jLabelDias.setForeground(Color.red);
+                }
             }
         }
     }//GEN-LAST:event_jListLembretesValueChanged
@@ -869,7 +926,7 @@ public class Tela extends javax.swing.JFrame
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
         int resultado = JOptionPane.showConfirmDialog(this.getContentPane(), "Deseja sair do programa?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
         if(resultado == 0)
-            this.dispose();
+            System.exit(0);
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
     private void jMenuItemSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalvarActionPerformed
@@ -964,6 +1021,13 @@ public class Tela extends javax.swing.JFrame
         Sobre sobre = new Sobre(this, true);
     }//GEN-LAST:event_jButtonSobreActionPerformed
 
+    private void menuItemExibirOcultarTrayActionPerformed(java.awt.event.ActionEvent evt) {   
+        this.setVisible(!this.isVisible()); 
+    }
+    
+    private void menuItemSairTrayActionPerformed(java.awt.event.ActionEvent evt) {   
+        System.exit(0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
@@ -1032,4 +1096,10 @@ public class Tela extends javax.swing.JFrame
     private javax.swing.JTextField jTextFieldEditarNomeLembrete;
     private javax.swing.JTextField jTextFieldNomeLembrete;
     // End of variables declaration//GEN-END:variables
+    private SystemTray tray;
+    private TrayIcon trayIcon;
+    private PopupMenu popupTray;
+    private MenuItem menuItemExibirOcultarTray;
+    private MenuItem menuItemSairTray;
+    private ImageIcon iconeJanela;
 }
